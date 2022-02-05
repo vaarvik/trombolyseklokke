@@ -102,4 +102,5 @@
 .ProgressBar__inner {
   height: 100%;
   background-color: rgb(0, 90, 224);
+  transition: .4s;
 }
