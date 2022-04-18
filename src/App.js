@@ -6,28 +6,25 @@ import ProgressBar from './ProgressBar';
 function App(){
   const steps = [
     {
-      name: "Steg 1",
-      time: 120,
+      name: "Blodprøver",
+      time: 120
     },
     {
-      name: "Steg 2",
-      time: 120,
+      name: "Klinisk undersøkelse",
+      time: 150
     },
     {
-      name: "Steg 3",
-      time: 120,
+      name: "CT",
+      time: 480
     },
     {
-      name: "Steg 4",
-      time: 120,
-    },
-    {
-      name: "Steg 5",
-      time: 120,
-    },
+      name: "Trombolyse gitt",
+      time: 150
+    }
   ]
 
   const [currentStepTime, setCurrentStepTime] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
   const [status, setStatus] = useState("paused");
   const [reset, setReset] = useState(false);
   const [nextReset, setNextReset] = useState(false);
@@ -58,15 +55,16 @@ function App(){
   return (
     <div className="App">
       <div className="Screen">
-        <Timer isPaused={ status === "paused" } reset={reset} onReset={() => setReset(false)}  />
+        <Timer isPaused={ status === "paused" } reset={reset} onReset={() => setReset(false)} onCount={(time) => setCurrentTime(time)} />
         <div className="Screen__main-content">
           <Timer isPaused={ status === "paused" } reset={nextReset || reset} onReset={() => {
-              setNextReset(false);
-              setReset(false);
-            }
-          } onCount={(time) => setCurrentStepTime(time)} />
+            setNextReset(false);
+            setReset(false);
+          }
+        } onCount={(time) => setCurrentStepTime(time)} />
           <ProgressBar time={currentStepTime} maxTime={steps[currentStep]?.time} />
         </div>
+        <ProgressBar time={currentTime} maxTime={steps.reduce((time, step) => time += step.time, 0 )} isTop/>
         <p className="Screen__step">
           Steg {currentStep + 1}: <span>{steps[currentStep]?.name}</span>
         </p>

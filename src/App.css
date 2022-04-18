@@ -104,3 +104,14 @@
   background-color: rgb(0, 90, 224);
   transition: .4s;
 }
+
+.ProgressBar.is-top {
+  background-color: #535353;
+  border: 0;
+  border-radius: 0;
+  height: 4px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
